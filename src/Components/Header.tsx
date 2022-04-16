@@ -162,12 +162,12 @@ function Header() {
         </Logo>
         <Items>
           <Item>
-            <Link to="/">
+            <Link to="/netflix-homework">
               Home {homeMatch?.isExact && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
-            <Link to="/tv">
+            <Link to="/netflix-homework/tv">
               Tv Shows {tvMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
