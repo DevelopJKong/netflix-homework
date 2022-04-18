@@ -110,8 +110,8 @@ interface IForm {
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const homeMatch = useRouteMatch("/");
-  const tvMatch = useRouteMatch("/tv");
+  const homeMatch = useRouteMatch("/netflix-homework");
+  const tvMatch = useRouteMatch("/netflix-homework/tv");
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
   const { scrollY } = useViewportScroll();

@@ -23,8 +23,7 @@ const Banner = styled.div<{ bgPhoto: string }>`
   flex-direction: column;
   justify-content: center;
   padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.bgPhoto});
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${(props) => props.bgPhoto});
   background-size: cover;
 `;
 
@@ -54,17 +53,15 @@ const Row = styled(motion.div)`
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
-  height: 200px;
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
   background-position: center center;
-  font-size: 32px;
-  position: relative;
-  cursor: pointer;
+  height: 200px;
+  font-size: 66px;
+  cursor:pointer;
   &:first-child {
     transform-origin: center left;
   }
-
   &:last-child {
     transform-origin: center right;
   }
@@ -101,7 +98,18 @@ const BigMovie = styled(motion.div)`
   margin: 0 auto;
   background-color: ${(props) => props.theme.black.lighter};
   border-radius: 15px;
-  overflow: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: darkgrey;
+    border-radius: 2.2222rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2.2222rem;
+  }
 `;
 
 const BigCover = styled.div`
@@ -114,14 +122,14 @@ const BigCover = styled.div`
 const BigTitle = styled.h2`
   color: ${(props) => props.theme.white.lighter};
   padding: 20px;
-  font-size: 48px;
+  font-size: 34px;
   position: relative;
   top: -80px;
 `;
 
 const BigOverview = styled.p`
-  padding: 20px;
-  top: -80px;
+  padding: 10px;
+  top: -30px;
   color: ${(props) => props.theme.white.lighter};
 `;
 
@@ -146,7 +154,6 @@ const boxVariants = {
     y: -80,
     transition: {
       delay: 0.5,
-      duaration: 0.1,
       type: "tween",
     },
   },
@@ -157,7 +164,6 @@ const infoVariants = {
     opacity: 1,
     transition: {
       delay: 0.5,
-      duaration: 0.1,
       type: "tween",
     },
   },
@@ -166,7 +172,9 @@ const offset = 6;
 
 function Home() {
   const history = useHistory();
-  const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
+  const bigMovieMatch = useRouteMatch<{ movieId: string }>(
+    "/netflix-homework/movies/:movieId"
+  );
   const { scrollY } = useViewportScroll();
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"],
@@ -186,16 +194,16 @@ function Home() {
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const onBoxClicked = (movieId: number) => {
-    history.push(`/movies/${movieId}`);
+    history.push(`/netflix-homework/movies/${movieId}`);
   };
 
-  const onOverlayClick = () => history.push("/");
+  const onOverlayClick = () => history.push("/netflix-homework");
   const clickedMovie =
     bigMovieMatch?.params.movieId &&
     data?.results.find(
       (movie) => String(movie.id) === bigMovieMatch.params.movieId
     );
-
+  console.log(data);
   return (
     <Wrapper>
       {isLoading ? (
@@ -257,7 +265,7 @@ function Home() {
                     <>
                       <BigCover
                         style={{
-                          backgroundImage: `linear-gradient(to top, black,transparent)url(${makeImagePath(
+                          backgroundImage: `linear-gradient(to top, black,transparent), url(${makeImagePath(
                             clickedMovie.backdrop_path,
                             "w500"
                           )})`,
